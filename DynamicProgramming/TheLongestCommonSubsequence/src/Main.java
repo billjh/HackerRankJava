@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
@@ -21,7 +20,7 @@ public class Main {
             b[j] = scanner.nextInt();
         }
 
-        int[][] C = new int[n+1][m+1];
+        int[][] C = new int[n + 1][m + 1];
 
         // tabulation
         for (int i = 0; i <= n; i++) {
@@ -36,17 +35,24 @@ public class Main {
             }
         }
 
-        for (int i = 1; i <= n; i++) {
-            if (C[i][m] > C[i - 1][m]) {
-                System.out.printf("%d ", a[i - 1]);
+        int[] subseq = new int[C[n][m]];
+        int i = n, j = m;
+
+        while (C[i][j] > 0) {
+
+            if (C[i][j] == C[i - 1][j]) {
+                i--;
+            } else if (C[i][j] == C[i][j - 1]) {
+                j--;
+            } else {
+                subseq[C[i][j] - 1] = a[i - 1];
+                i--;
+                j--;
             }
         }
-        System.out.println();
-        for (int j = 1; j <= m; j++) {
-            if (C[n][j] > C[n][j - 1]) {
-                System.out.printf("%d ", b[j - 1]);
-            }
+
+        for (int s: subseq) {
+            System.out.printf("%d ", s);
         }
     }
 }
-
